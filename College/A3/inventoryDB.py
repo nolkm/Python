@@ -143,12 +143,23 @@ def delete_item(database):#function to delete items from data base
                 abort = True
             else: # Invalid input for confirmation
                 print("Error Invalid input || PLease try again!")#error msg 
-        
+
     #end of delete_item()
 
 def find_item_category(database):
+    print("You selected option 6 ")#function option #num 6
+
+    items = database.values()#getting all the items in the data base and storing it in a list 
+    items = list(items)
+    item_category = input("Please enter the item Category: ")#prompting user for category INPUT...
+    
+    ''' ---Come Back to Later--'''
+    return 
+    
+    #i = items[1].index("fruit")#checking if the input is in the list of values 
     
 
+        
 
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
