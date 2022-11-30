@@ -17,7 +17,7 @@ def main():
         elif ch == 4: 
             change_item(database)#changing item in DB 
         elif ch == 5: 
-            delete_item(datbase)#deleting item from DB 
+            delete_item(database)#deleting item from DB 
         elif ch == 6: 
             find_item_category(database)#finding items given category 
         elif ch == 7: 
@@ -100,8 +100,56 @@ def add_item(database):#function to add item to data base
             print(f"ItemID: {itemID} Already Exists with {database.get(itemID)}, please remove this item before proceeding ")
             return None #taking user back to menu 
         
+def change_item(database):
+    itemID = input("Please enter the item ID: ")
+
+    if itemID in database:
+        valid = True#making valid true to break out of the loop 
+        itemName = input("Please enter in the item Name: ")#prompting for item name   
+        itemCategory = input("Please enter in the item Category: ")#item Category 
+        cntrlVar = False#loop control varible 
+        while cntrlVar == False:
+            try:
+                itemPrice = float(input("Please enter Item price: "))#prompting for item price  
+                cntrlVar = True#breaking out of loop 
+            except ValueError: 
+                print("*error* \n Item Price must be a Number, not a string")#error msg!
+        cntrlVar = False#loop control varible
+        while cntrlVar == False:
+            try: 
+                itemCount = int(input("Please enter the item Count: "))#prompting for user input
+                cntrlVar = True
+            except ValueError:
+                print("Please enter in a number Not a string")#error msg!
+        item = [itemName, itemCategory, itemPrice, itemCount]#creating a list with all input 
+        database[itemID] = item #adding the key to be the itemId the user entered and the value to be the list of all the item info user inputted 
+    else:
+        print(f'ERROR: Item with ID "{itemID} could not be found.' ) 
+    
+    #end of change_item()
+
+def delete_item(database):#function to delete items from data base 
+    abort = False #while loop control var
+    while abort == False:
+        itemID = input("please enter item ID: ")#prompting user for itemID
+        if itemID in database: #verifying that the itemID that hase been inputted is in the database 
+            confirmation = input(f'Confirm you would like to delete item "{database[itemID]}" this change cannot be reversed (Y/n): ')#Confriming with user the would like to delete the item 
+            if confirmation.lower() == 'y':
+                print(f'Item "{database[itemID]}"')#output show item was deleted  
+                del database[itemID]#deleteting the item with item ID
+                return
+            elif confirmation == "n":
+                print(f'Item "{database[itemID]}" has not been removed... \n--Returning to main() Menu--')
+                abort = True
+            else: # Invalid input for confirmation
+                print("Error Invalid input || PLease try again!")#error msg 
         
- 
+    #end of delete_item()
+
+def find_item_category(database):
+    
+
+
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
 
