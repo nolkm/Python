@@ -1,3 +1,9 @@
+'''
+Dev: Michael || Mm0)
+Date: 11/21/2022
+College Year 1 Semester 1 (PROG124029)
+'''
+
 #inventory data base for A3 
 import inventoryDict as inventory#import my inventory from an external python file 
 import sys# importing Sys for the sys.exit method 
