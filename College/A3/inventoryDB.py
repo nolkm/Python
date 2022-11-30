@@ -59,7 +59,7 @@ def show_all(database):
     #end of show_all()
 
 def look_up(database):#option2
-    itemID = input("Enter the user id: ") #prompting the user for the ITEM ID 
+    itemID = input("Enter the item id: ") #prompting the user for the ITEM ID 
   
     print(database.get(itemID,"User id not found *404* "))#.get() will check for ITEM ID if it can't find it then it will display error message 
     #end of look_up
