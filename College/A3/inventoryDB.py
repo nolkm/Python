@@ -21,7 +21,7 @@ def main():
         elif ch == 6: 
             find_item_category(database)#finding items given category 
         elif ch == 7: 
-            itemCount_priceCategory(database)#Item count, average prpice by category
+            itemCount_priceCategory(database)#Item count, average price by category
         elif ch == 8: 
             priceUP(database)#finding the most exspensive item 
         elif ch == 9:
@@ -148,18 +148,21 @@ def delete_item(database):#function to delete items from data base
 
 def find_item_category(database):
     print("You selected option 6 ")#function option #num 6
+    item_category = input("Please enter the item Category: ")#prompting user for category INPUT..
+    for keys, values in database.items():#itterating through the loop 
+        if values[1] == item_category:#printing if input is == category in database
+            print(values)
+        else: #invalid entry
+            print('ERROR 404: Item Category "{item_category}" Not Found')#error msg 
+    #end of find_item_category()
 
-    items = database.values()#getting all the items in the data base and storing it in a list 
-    items = list(items)
-    item_category = input("Please enter the item Category: ")#prompting user for category INPUT...
-    
-    ''' ---Come Back to Later--'''
-    return 
-    
-    #i = items[1].index("fruit")#checking if the input is in the list of values 
+def itemCount_priceCategory(database):#Item count, average price by category
     
 
-        
+
+
+
+    #end of itemCount_priceCategory()
 
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
