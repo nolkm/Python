@@ -157,7 +157,7 @@ def find_item_category(database):
     #end of find_item_category()
 
 def itemCount_priceCategory(database):#Item count, average price by category
-    
+    print("Production in Progress")#saving for l8r
 
 
 
