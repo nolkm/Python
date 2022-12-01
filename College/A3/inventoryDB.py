@@ -113,12 +113,18 @@ def change_item(database):
         valid = True#making valid true to break out of the loop 
         itemName = input("Please enter in the item Name: ")#prompting for item name   
         itemCategory = input("Please enter in the item Category: ")#item Category 
+        x = database[itemID]#creating a list from the id input 
+        if x[1] == itemCategory:
+            itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
+                    
+        else: 
+            print("Item Category Invalid")
         cntrlVar = False#loop control varible 
         while cntrlVar == False:
             try:
                 itemPrice = float(input("Please enter Item price: "))#prompting for item price  
                 cntrlVar = True#breaking out of loop 
-            except ValueError: 
+            except ValueError as e: 
                 print("*error* \n Item Price must be a Number, not a string")#error msg!
         cntrlVar = False#loop control varible
         while cntrlVar == False:
