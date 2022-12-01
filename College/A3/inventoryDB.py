@@ -1,3 +1,9 @@
+'''
+Dev: Michael || Mm0)
+Date: 11/21/2022
+College Year 1 Semester 1 (PROG124029)
+'''
+
 #inventory data base for A3 
 import inventoryDict as inventory#import my inventory from an external python file 
 import sys# importing Sys for the sys.exit method 
@@ -21,7 +27,7 @@ def main():
         elif ch == 6: 
             find_item_category(database)#finding items given category 
         elif ch == 7: 
-            itemCount_priceCategory(database)#Item count, average prpice by category
+            itemCount_priceCategory(database)#Item count, average price by category
         elif ch == 8: 
             priceUP(database)#finding the most exspensive item 
         elif ch == 9:
@@ -59,7 +65,7 @@ def show_all(database):
     #end of show_all()
 
 def look_up(database):#option2
-    itemID = input("Enter the user id: ") #prompting the user for the ITEM ID 
+    itemID = input("Enter the item id: ") #prompting the user for the ITEM ID 
   
     print(database.get(itemID,"User id not found *404* "))#.get() will check for ITEM ID if it can't find it then it will display error message 
     #end of look_up
@@ -107,12 +113,18 @@ def change_item(database):
         valid = True#making valid true to break out of the loop 
         itemName = input("Please enter in the item Name: ")#prompting for item name   
         itemCategory = input("Please enter in the item Category: ")#item Category 
+        x = database[itemID]#creating a list from the id input 
+        if x[1] == itemCategory:
+            itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
+                    
+        else: 
+            print("Item Category Invalid")
         cntrlVar = False#loop control varible 
         while cntrlVar == False:
             try:
                 itemPrice = float(input("Please enter Item price: "))#prompting for item price  
                 cntrlVar = True#breaking out of loop 
-            except ValueError: 
+            except ValueError as e: 
                 print("*error* \n Item Price must be a Number, not a string")#error msg!
         cntrlVar = False#loop control varible
         while cntrlVar == False:
@@ -143,12 +155,26 @@ def delete_item(database):#function to delete items from data base
                 abort = True
             else: # Invalid input for confirmation
                 print("Error Invalid input || PLease try again!")#error msg 
-        
+
     #end of delete_item()
 
 def find_item_category(database):
-    
+    print("You selected option 6 ")#function option #num 6
+    item_category = input("Please enter the item Category: ")#prompting user for category INPUT..
+    for keys, values in database.items():#itterating through the loop 
+        if values[1] == item_category:#printing if input is == category in database
+            print(values)
+        else: #invalid entry
+            print('ERROR 404: Item Category "{item_category}" Not Found')#error msg 
+    #end of find_item_category()
 
+def itemCount_priceCategory(database):#Item count, average price by category
+    print("Production in Progress")#saving for l8r
+
+
+
+
+    #end of itemCount_priceCategory()
 
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
