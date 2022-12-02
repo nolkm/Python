@@ -111,14 +111,16 @@ def change_item(database):
 
     if itemID in database:
         valid = True#making valid true to break out of the loop 
+        
         itemName = input("Please enter in the item Name: ")#prompting for item name   
-        itemCategory = input("Please enter in the item Category: ")#item Category 
-        x = database[itemID]#creating a list from the id input 
-        if x[1] == itemCategory:
-            itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
-                    
-        else: 
-            print("Item Category Invalid ")
+        while True:
+            itemCategory = input("Please enter in the item Category: ")#item Category 
+            x = database[itemID]#creating a list from the id input 
+            if x[1] == itemCategory:
+                itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
+                break#breaking out of loop 
+            else: 
+                print("Item Category Invalid ")
         cntrlVar = False#loop control varible 
         while cntrlVar == False:
             try:
@@ -159,8 +161,12 @@ def delete_item(database):#function to delete items from data base
     #end of delete_item()
 
 def find_item_category(database):
+    itemCategoryList = Categories
+    print(itemCategoryList)
     print("You selected option 6 ")#function option #num 6
     item_category = input("Please enter the item Category: ")#prompting user for category INPUT..
+   
+   # if item_category
     for keys, values in database.items():#itterating through the loop 
         if values[1] == item_category:#printing if input is == category in database
             print(values)
@@ -172,25 +178,29 @@ def itemCount_priceCategory(database):#Item count, average price by category
     print("Production in Progress")#saving for l8r
 
 class Categories:
-    def __init__(self):
-        self.category_list = ["Fruit", "Dairy", "Vegetable"] #creating a list with default characters
-        return self.category_list
-   
+    global CATEGORY_LIST #CREATING A GLOBAL CLASS VARIBLE OF A LIST OF ALL THE DEFAULT CATEGORIES 
+    CATEGORY_LIST = ["Fruit", "Dairy", "Vegetable"] #creating a list with default characters
+    def category():#JUST A FUNCTION TO RETURN THE VALUES 
+        CATEGORY_LIST #CALLING GLOBAL
+        return CATEGORY_LIST #RETURNING CATEGORY lIST
+        #END OF CATEGORY()
     def update(category): #this is a function to update the category list 
-        category_list = ["Fruit", "Dairy", "Vegetable"] #creating a list with default characters
         try:
-            if category not in category_list:
-                category_list.append(category)
-                print("item Updated")
-                print(category_list)
+            if category not in CATEGORY_LIST: #IF THEIR IS A NEW CATEGORY IT WILL UPDATE 
+                CATEGORY_LIST.append(category)#APPENDING THE FUNCTION INPUT 
+                print("item Updated")#OUT MSG
+                #print(CATEGORY_LIST)#OUT MSG
             else:
-                print("error")
+                print("No Changes Made") # Letting the user know that no changes were made 
         except Exception as e:
-            print(f"Error! --> {e}")
-
-    #end of itemCount_priceCategory()
+            print(f"Error! --> {e}")#ERROR MSG 
+        return CATEGORY_LIST #RETURNING THE CATEGORY LIST 
+        #END OF UPDATE()
+    #END OF CATEGORIES __Class__ ...
 x = Categories.update("Meat")
-print(x)
+x = Categories.category
+print(x)#CLASS TESTING
+
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
 
