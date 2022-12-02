@@ -118,7 +118,7 @@ def change_item(database):
             itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
                     
         else: 
-            print("Item Category Invalid")
+            print("Item Category Invalid ")
         cntrlVar = False#loop control varible 
         while cntrlVar == False:
             try:
@@ -171,11 +171,26 @@ def find_item_category(database):
 def itemCount_priceCategory(database):#Item count, average price by category
     print("Production in Progress")#saving for l8r
 
-
-
+class Categories:
+    def __init__(self):
+        self.category_list = ["Fruit", "Dairy", "Vegetable"] #creating a list with default characters
+        return self.category_list
+   
+    def update(category): #this is a function to update the category list 
+        category_list = ["Fruit", "Dairy", "Vegetable"] #creating a list with default characters
+        try:
+            if category not in category_list:
+                category_list.append(category)
+                print("item Updated")
+                print(category_list)
+            else:
+                print("error")
+        except Exception as e:
+            print(f"Error! --> {e}")
 
     #end of itemCount_priceCategory()
-
+x = Categories.update("Meat")
+print(x)
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
 
