@@ -213,7 +213,8 @@ def find_item_category(database):
         if values[1] == item_category:#printing if input is == category in database
             print(values)
         elif values[1] != item_category: 
-            None
+            None # if the item category is not equal return none 
+
      
     #end of find_item_category()
 
