@@ -52,6 +52,7 @@ def choice():
     9. Total price by item
     10. Quit the proram
     """)#options
+    print(f"CATEGORY_LIST(DATBASE) = {CATEGORY_LIST} ") # DISPLAYING THE CATEGORY LIST CHANGES 
     valid = False#assigning a boolean value of false as my control varible 
     while valid == False:#looping the prompt
         try:
@@ -77,49 +78,57 @@ def look_up(database):#option2
 
 def add_item(database):#function to add item to data base 
     print("You selected Option '2' ") #welcome
-    print(f"\n {CATEGORY_LIST} \n") #category List
+
     item = list()#creating a empty dict to input all of the item stats
     valid = False#making a valid selection varible to control my loop 
 
     while valid == False:
         itemID = input("Enter Item Id: ")#prompt user for item id
         itemCategory = input("Please enter in the item Category: ")#item Category
-        if len(itemID) > 3:
-            valid = False#making valid false 
-            print("Please enter a Valid input || please enter a Item ID that is no great than 3 characters ")#error message 
-            ValueError#throwing a value error 
+        if itemCategory.lower() in CATEGORY_LIST:
+            print("Yes it is in CATEGORY_LIST" )
+            if len(itemID) > 3:
+                valid = False#making valid false 
+                print("Please enter a Valid input || please enter a Item ID that is no great than 3 characters ")#error message  
 
-        elif itemID not in database:#verifying that the user ID isn't already in the Database  
-            itemName = input("Please enter in the item Name: ")#prompting for item name    
-            if itemName[0].lower() == 'f' and itemCategory.lower() != CATEGORY_LIST[0].lower():
-                print("Error, Any itemID starting with  the letter 'f' must have a category of 'Fruit' ") #error msg
-            if itemName[0].lower() == 'v' and itemCategory.lower() != CATEGORY_LIST[0].lower():
-                print("Error, Any itemID starting with  the letter 'v' must have a category of 'Vegetable' ") #error msg
-            if itemName[0].lower() == 'd' and itemCategory.lower() != CATEGORY_LIST[0].lower():
-                print("Error, Any itemID starting with  the letter 'd' must have a category of 'Dairy' ") #error msg
+            elif itemID not in database:#verifying that the user ID isn't already in the Database  
+                if itemID[0].lower() == 'f' and itemCategory.lower() != CATEGORY_LIST[0].lower():
+                    print("Error, Any itemID starting with  the letter 'f' must have a category of 'Fruit' ") #error msg
+                    valid = False #continuing the loop 
+                elif itemID[0].lower() == 'v' and itemCategory.lower() != CATEGORY_LIST[1].lower():
+                    print("Error, Any itemID starting with  the letter 'v' must have a category of 'Vegetable' ") #error msg
+                    valid = False #continuing the loop 
+                elif itemID[0].lower() == 'd' and itemCategory.lower() != CATEGORY_LIST[2].lower():
+                    print("Error, Any itemID starting with  the letter 'd' must have a category of 'Dairy' ") #error msg
+                    valid = False #continuing the loop 
+                else: 
+                    valid = True#making valid true to break out of the loop
+                    cntrlVar = False#loop control varible 
             else:
-                valid = True#making valid true to break out of the loop 
-                
+                print(f"ItemID: {itemID} Already Exists with {database.get(itemID)}, please remove this item before proceeding ")
+                return None #taking user back to menu 
+        elif itemCategory not in CATEGORY_LIST:
+            CATEGORY_LIST.append(itemCategory.lower()) # adding the new category to my Category Database 
+            valid = True #breaking my loop
             cntrlVar = False#loop control varible 
-            while cntrlVar == False:
-                try:
-                    itemPrice = float(input("Please enter Item price: "))#prompting for item price  
-                    cntrlVar = True#breaking out of loop 
-                except ValueError: 
-                    print("*error* \n Item Price must be a Number, not a string")#error msg!
-            cntrlVar = False#loop control varible
-            while cntrlVar == False:
-                try: 
-                    itemCount = int(input("Please enter the item Count: "))#prompting for user input
-                    cntrlVar = True
-                except ValueError:
-                    print("Please enter in a number Not a string")#error msg!
-            item = [itemName, itemCategory, itemPrice, itemCount]#creating a list with all input 
-            database[itemID] = item #adding the key to be the itemId the user entered and the value to be the list of all the item info user inputted 
-            
-        else:
-            print(f"ItemID: {itemID} Already Exists with {database.get(itemID)}, please remove this item before proceeding ")
-            return None #taking user back to menu 
+        while cntrlVar == False:
+            itemName = input("Please enter in the item Name: ")#prompting for item name
+            try:
+                itemPrice = float(input("Please enter Item price: "))#prompting for item price  
+                cntrlVar = True#breaking out of loop 
+            except ValueError: 
+                print("*error* \n Item Price must be a Number, not a string")#error msg!
+        cntrlVar = False#loop control varible
+        while cntrlVar == False:
+            try: 
+                itemCount = int(input("Please enter the item Count: "))#prompting for user input
+                cntrlVar = True
+            except ValueError:
+                print("Please enter in a number Not a string")#error msg!
+        item = [itemName, itemCategory, itemPrice, itemCount]#creating a list with all input 
+        database[itemID] = item #adding the key to be the itemId the user entered and the value to be the list of all the item info user inputted 
+        
+    
         
 def change_item(database):
     print('You Selected Option 4')
