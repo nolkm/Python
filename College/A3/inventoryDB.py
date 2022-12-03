@@ -9,6 +9,9 @@ import inventoryDict as inventory#import my inventory from an external python fi
 import sys# importing Sys for the sys.exit method 
 print("START")#just a checkpoint 
 database = inventory.dataBase()#creating a copy of the original data base in this program 
+global CATEGORY_LIST #CREATING GLOBAL CATEGORY LIST
+CATEGORY_LIST = inventory.categoryList 
+
 def main(): 
     while True: #while user doesnt choose to quit
         ch = choice()#varible for the return value of the option the user selects
@@ -60,6 +63,8 @@ def choice():
     #end of choice()
 
 def show_all(database):
+    print('You Selected Option 1') #welcome
+
     for key, value in database.items():#for loop to format the output 
         print(key, value)#printing the entire databse, line by line using for loop 
     #end of show_all()
@@ -71,20 +76,30 @@ def look_up(database):#option2
     #end of look_up
 
 def add_item(database):#function to add item to data base 
+    print("You selected Option '2' ") #welcome
+    print(f"\n {CATEGORY_LIST} \n") #category List
     item = list()#creating a empty dict to input all of the item stats
     valid = False#making a valid selection varible to control my loop 
 
     while valid == False:
         itemID = input("Enter Item Id: ")#prompt user for item id
+        itemCategory = input("Please enter in the item Category: ")#item Category
         if len(itemID) > 3:
             valid = False#making valid false 
             print("Please enter a Valid input || please enter a Item ID that is no great than 3 characters ")#error message 
             ValueError#throwing a value error 
 
-        elif itemID not in database:#verifying that the user ID isn't already in the Database 
-            valid = True#making valid true to break out of the loop 
-            itemName = input("Please enter in the item Name: ")#prompting for item name   
-            itemCategory = input("Please enter in the item Category: ")#item Category 
+        elif itemID not in database:#verifying that the user ID isn't already in the Database  
+            itemName = input("Please enter in the item Name: ")#prompting for item name    
+            if itemName[0].lower() == 'f' and itemCategory.lower() != CATEGORY_LIST[0].lower():
+                print("Error, Any itemID starting with  the letter 'f' must have a category of 'Fruit' ") #error msg
+            if itemName[0].lower() == 'v' and itemCategory.lower() != CATEGORY_LIST[0].lower():
+                print("Error, Any itemID starting with  the letter 'v' must have a category of 'Vegetable' ") #error msg
+            if itemName[0].lower() == 'd' and itemCategory.lower() != CATEGORY_LIST[0].lower():
+                print("Error, Any itemID starting with  the letter 'd' must have a category of 'Dairy' ") #error msg
+            else:
+                valid = True#making valid true to break out of the loop 
+                
             cntrlVar = False#loop control varible 
             while cntrlVar == False:
                 try:
@@ -107,47 +122,52 @@ def add_item(database):#function to add item to data base
             return None #taking user back to menu 
         
 def change_item(database):
-    error_counter = 3
-    itemID = input("Please enter the item ID: ")
+    print('You Selected Option 4')
+    error_counter = 4 #loop control 
+    while True: 
+        itemID = input("Please enter the item ID: ")
 
-    if itemID in database:
-        valid = True#making valid true to break out of the loop 
-        itemName = input("Please enter in the item Name: ")#prompting for item name   
-        userIn = False#while loop control varible 
-        while userIn == False: 
-            itemCategory = input("Please enter in the item Category: ")#item Category 
-            x = database[itemID]#creating a list from the id input 
-            if x[1] == itemCategory:
-                itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
-                userIn = True # breaking the while loop... 
-            else: 
-                print(f"Item Category Invalid (After {error_counter} Failed Attempts you wll be brought back to Main() Menu)")
-                error_counter -=1# subtracting on attempt every time from my control varibe 
-            if error_counter == 0:
-                print("Failed Attempts exceeded the amount allowed Bringing you back to main() Menu")#error msg 
-                return#returning user to main menu 
-        cntrlVar = False#loop control varible 
-        while cntrlVar == False:
-            try:
-                itemPrice = float(input("Please enter Item price: "))#prompting for item price  
-                cntrlVar = True#breaking out of loop 
-            except ValueError as e: 
-                print("*error* \n Item Price must be a Number, not a string")#error msg!
-        cntrlVar = False#loop control varible
-        while cntrlVar == False:
-            try: 
-                itemCount = int(input("Please enter the item Count: "))#prompting for user input
-                cntrlVar = True
-            except ValueError:
-                print("Please enter in a number Not a string")#error msg!
-        item = [itemName, itemCategory, itemPrice, itemCount]#creating a list with all input 
-        database[itemID] = item #adding the key to be the itemId the user entered and the value to be the list of all the item info user inputted 
-    else:
-        print(f'ERROR: Item with ID "{itemID} could not be found.' ) 
+        if itemID in database:
+            valid = True#making valid true to break out of the loop 
+            itemName = input("Please enter in the item Name: ")#prompting for item name   
+            userIn = False#while loop control varible 
+            while userIn == False: 
+                itemCategory = input("Please enter in the item Category: ")#item Category 
+                x = database[itemID]#creating a list from the id input 
+                if x[1] == itemCategory:
+                    itemCategory = x[1]#assigning the category to itemCategory input if the input matches the default category
+                    userIn = True # breaking the while loop... 
+                else: 
+                    print(f"Item Category Invalid (After {error_counter} Failed Attempts you wll be brought back to Main() Menu)")
+                    error_counter -=1# subtracting on attempt every time from my control varibe 
+                if error_counter == 0:
+                    print("Failed Attempts exceeded the amount allowed Bringing you back to main() Menu")#error msg 
+                    return#returning user to main menu 
+            cntrlVar = False#loop control varible 
+            while cntrlVar == False:
+                try:
+                    itemPrice = float(input("Please enter Item price: "))#prompting for item price  
+                    cntrlVar = True#breaking out of loop 
+                except ValueError as e: 
+                    print("*error* \n Item Price must be a Number, not a string")#error msg!
+            cntrlVar = False#loop control varible
+            while cntrlVar == False:
+                try: 
+                    itemCount = int(input("Please enter the item Count: "))#prompting for user input
+                    cntrlVar = True
+                except ValueError:
+                    print("Please enter in a number Not a string")#error msg!
+            item = [itemName, itemCategory, itemPrice, itemCount]#creating a list with all input 
+            database[itemID] = item #adding the key to be the itemId the user entered and the value to be the list of all the item info user inputted 
+            break
+        else:
+            print(f'ERROR: Item with ID "{itemID} could not be found.' ) 
     
     #end of change_item()
 
 def delete_item(database):#function to delete items from data base 
+    print("--You selected Option '5' Delete_item()--") #welcome
+
     abort = False #while loop control var
     while abort == False:
         itemID = input("please enter item ID: ")#prompting user for itemID
@@ -162,7 +182,15 @@ def delete_item(database):#function to delete items from data base
                 abort = True
             else: # Invalid input for confirmation
                 print("Error Invalid input || PLease try again!")#error msg 
-
+        else:
+            userIn = input("{Invalid Input} || would you like to continue?(Y/n): ") #asking user if they want to tryu again 
+            if userIn.lower() == 'n':
+                print("Returning to Main")
+                abort = True
+            elif userIn.lower() == 'y':
+                abort = False # loop continues.. 
+            else: 
+                print("Invalid input Please Try again")
     #end of delete_item()
 
 def find_item_category(database):
@@ -177,9 +205,21 @@ def find_item_category(database):
 
 def itemCount_priceCategory(database):#Item count, average price by category
     print("Production in Progress")#saving for l8r
+'''
+def categoryList(*category):#using the astrisk to accept any number of arguments 
+    category_list = ["Fruit","Vegetable","Dairy"] #creating a list with the default Categories 
+    if category not in category_list:
+        category_list.append(str(category))#adding a new values   
+        return category_list
+    else:
+        print("Nothing Changed... ")  # error msg
+        return category_list #return list by default when no changes are made 
+     
+x = categoryList("Meat")
+print(x)
+print(categoryList())
 
-
-
+'''
 
     #end of itemCount_priceCategory()
 

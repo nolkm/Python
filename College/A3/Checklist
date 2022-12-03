@@ -8,3 +8,5 @@
     8. Most exspensive item by category || Status = {InProgress}
     9. Total price by item || Status = {Inprogress}
     10. Quit the proram || Status = {In Progress}
+
+(Notes | 2022-12-02 | 8:29pm) --> Tried creating a function to allow me to have a global varible of the category list default values but i realized i can just do that with the keyword global... smh.. LuL-_- {/end || 2022 - 12 - 02}
