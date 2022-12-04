@@ -3,8 +3,8 @@
     3. Add an item to inventory || Status = {Done!}
     4. Change an item || Status = {Done!}
     5. Delete an item || Status = {Bug, when user enters wrong Item Id program fails to dislay error msg(2022-12-02 | 8:01pm)}
-    6. Find items given category || Status = {Bug Fixing }
-    7. Item count, average price by category || Status = {InProgress}
+    6. Find items given category || Status = {Bug Fixing (Fixed, DONE!)}
+    7. Item count, average price by category || Status = {InProgress || 2022-12-03 = 7:25pm}
     8. Most exspensive item by category || Status = {InProgress}
     9. Total price by item || Status = {Inprogress}
     10. Quit the proram || Status = {In Progress}

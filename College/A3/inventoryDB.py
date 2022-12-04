@@ -63,11 +63,16 @@ def choice():
     return choice
     #end of choice()
 
-def show_all(database):
+def show_all(inventory):
     print('You Selected Option 1') #welcome
-
-    for key, value in database.items():#for loop to format the output 
-        print(key, value)#printing the entire databse, line by line using for loop 
+    print(f"\n\033[96m{'*'*30} Displaying all items {'*'*30}")
+    # Printing the header
+    print(f"{'Item Code':<15}{'Item Name':<15}{'Category':<15}{'Price (CA$)':<15}{'Quantity':<15}")  
+    print(f"{'-'*75}")              # Printing the header separator
+    for key in inventory:           # Loop through the dictionary and print the values in a tabular format
+        print(f"{key:<15}{inventory[key][0]:<15}{inventory[key][1]:<15}{inventory[key][2]:<15}{inventory[key][3]:<15}")
+    print("\033[0m")
+    
     #end of show_all()
 
 def look_up(database):#option2
@@ -210,32 +215,40 @@ def find_item_category(database):
             print('ERROR 404: Item Category "{item_category}" Not Found')#error msg
             return
     for keys, values in database.items():#itterating through the loop 
-        if values[1] == item_category:#printing if input is == category in database
+        if values[1].lower() == item_category.lower():#printing if input is == category in database
             print(values)
-        elif values[1] != item_category: 
+        elif values[1].lower() != item_category.lower(): 
             None # if the item category is not equal return none 
 
      
     #end of find_item_category()
 
 def itemCount_priceCategory(database):#Item count, average price by category
-    print("Production in Progress")#saving for l8r
-'''
-def categoryList(*category):#using the astrisk to accept any number of arguments 
-    category_list = ["Fruit","Vegetable","Dairy"] #creating a list with the default Categories 
-    if category not in category_list:
-        category_list.append(str(category))#adding a new values   
-        return category_list
-    else:
-        print("Nothing Changed... ")  # error msg
-        return category_list #return list by default when no changes are made 
-     
-x = categoryList("Meat")
-print(x)
-print(categoryList())
-
-'''
-
+    print("Option 7")#saving for l8r
+    fruitCount = 0
+    vegeCount = 0 
+    dairyCount = 0
+    fruitPrice = 0.00
+    vegePrice = 0.00
+    dairyPrice = 0.00
+    otherCount = 0
+    for keys, values in database.items():
+        print(values[1])
+        if values[1].lower() == CATEGORY_LIST[0]:     
+            fruitCount += 1 #adding count 
+            fruitPrice += values[3] #total cost
+        if values[1].lower() == CATEGORY_LIST[1]:
+            vegeCount += 1 #adding count 
+            vegePrice = values[3] #caculating total cost 
+        if values[1].lower() == CATEGORY_LIST[2]:
+            dairyCount += 1  #adding count 
+            dairyPrice += values[3]   
+    print(f'{CATEGORY_LIST[0]} Count = {fruitCount}') #output count for fruit
+    print(f'{CATEGORY_LIST[2]} Count = {vegeCount}') #output count for vege
+    print(f'{CATEGORY_LIST[1]} Count = {dairyCount}') #output count for dairy
+    print(f'{CATEGORY_LIST[0]} average cost = {fruitPrice / fruitCount}') #average cost
+    print(f'{CATEGORY_LIST[2]} average cost = {vegePrice / vegeCount}') #average cost
+    print(f'{CATEGORY_LIST[1]} average cost = {dairyPrice / dairyCount}') #average cost
     #end of itemCount_priceCategory()
 
 if __name__ == '__main__':#checking for main()

@@ -12,4 +12,5 @@ def dataBase():#creating a data base funciton that returns the default data base
             'V04':["Potato", "Vegtable", 6, 1000]
         }#end of inventory (With Default Values)
     return inventoryDB#rturning the values 
+categoryList = ["fruit", "dairy", "vegetable"]
 
