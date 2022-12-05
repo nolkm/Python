@@ -16,26 +16,28 @@ def main():
     while True: #while user doesnt choose to quit
         ch = choice()#varible for the return value of the option the user selects
         #while user doesnt choose to quit 
-        if ch == 1:#show_all()
+        if ch.isnumeric() == False:
+            print(f"ERROR: {ch} is ainvlaid input \nPlease enter a valid int ")# error msg
+        if ch == '1':#show_all()
             show_all(database)#function to show all items 
-        
-        elif ch == 2:#look_up()
+        elif ch == '2':#look_up()
             look_up(database)#function that looks up all items 
-        elif ch == 3:
+            print('')
+        elif ch == '3':
             add_item(database)
-        elif ch == 4: 
+        elif ch == '4': 
             change_item(database)#changing item in DB 
-        elif ch == 5: 
+        elif ch == '5': 
             delete_item(database)#deleting item from DB 
-        elif ch == 6: 
+        elif ch == '6': 
             find_item_category(database)#finding items given category 
-        elif ch == 7: 
+        elif ch == '7': 
             itemCount_priceCategory(database)#Item count, average price by category
-        elif ch == 8: 
+        elif ch == '8': 
             priceUP(database)#finding the most exspensive item 
-        elif ch == 9:
+        elif ch == '9':
             total_price(database)#total price by item 
-        elif ch == 10:
+        elif ch == '10':
             sys.exit("*choice == 10: userIN ended Program* \nThank you:Good Bye!")
         else: 
             print('*ERROR @ main* \nplease enter valid input')
@@ -56,7 +58,7 @@ def choice():
     valid = False#assigning a boolean value of false as my control varible 
     while valid == False:#looping the prompt
         try:
-            choice = int(input("Enter your choice: "))#prompting user for choice 
+            choice = input("Enter your choice: ")#prompting user for choice 
             valid = True
         except ValueError:
             print("*ERROR*\nplease enter a Int of the option you're trying to select")
@@ -250,6 +252,32 @@ def itemCount_priceCategory(database):#Item count, average price by category
     print(f'{CATEGORY_LIST[2]} average cost = {vegePrice / vegeCount}') #average cost
     print(f'{CATEGORY_LIST[1]} average cost = {dairyPrice / dairyCount}') #average cost
     #end of itemCount_priceCategory()
+
+def priceUP(database):  #function to show the most exspensive item by category 
+    fruitMax = 0 #vairbles to find the most exspensive item
+    vegeMax = 0
+    dairyMax = 0
+
+    for keys, values in database.items(): 
+        if values[1].lower() == CATEGORY_LIST[0]:     
+            if fruitMax < values[3]:
+                fruitMax = values[3] #assigning the max price to varible for each category
+                fruitMaxName = values[0]
+        if values[1].lower() == CATEGORY_LIST[1]:
+            if vegeMax < values[3]:
+                vegeMax = values[3] #assigning the max price to varible for each category
+                vegeMaxName = values[0]
+        if values[1].lower() == CATEGORY_LIST[2]:
+             if dairyMax < values[3]:
+                dairyMax = values[3] #assigning the max price to varible for each category
+                dairyMaxName = values[0]
+    print(f"Most expensive item in category Fruit: {fruitMaxName} and it costs {fruitMax} ") #displaying the most exspensive item 
+    print(f"Most expensive item in category Fruit: {vegeMaxName} and it costs {vegeMax} ") #displaying the most exspensive item 
+    print(f"Most expensive item in category Fruit: {dairyMaxName} and it costs {dairyMax} ") #displaying the most exspensive item 
+    #end of priceUP()
+def total_price(database): #function to show all the items and their price.. 
+    for keys, values in database.items(): 
+        print(f"Item id = {keys} || item = {values[0]}, total price = {values[3]}")
 
 if __name__ == '__main__':#checking for main()
     main()#calling main() function 
