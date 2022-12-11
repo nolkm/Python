@@ -1,0 +1,10 @@
+F01 Orange Fruit 2.99 1000.0
+F02 Apple Fruit 1.99 5000.0
+F03 Banana Fruit 1.99 490.0
+D01 Milk Dairy 7.5 500.0
+D02 Cheese Dairy 15.0 840.0
+D03 Yogurt Dairy 5.5 700.0
+V01 Carrot Vegetable 3.8 890.0
+V02 Celery Vegetable 3.99 890.0
+V03 Bean Vegetable 4.5 1500.0
+V04 Potato Vegtable 6.0 1000.0
