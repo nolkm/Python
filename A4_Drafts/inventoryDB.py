@@ -300,7 +300,8 @@ def database(): #this is my funciton to read from the text file and convert it t
         lst = elements[4:].split() #this is me getting the category price unit count and item name in to a seprate list
         for i in range(len(lst)):
             try:
-                lst[i] = float(lst[i]) #trying to convert the numbered values to floats because before they were strings
+                lst[2] = float(lst[2]) #trying to convert the numbered values to floats because before they were strings
+                lst[3] = int(lst[3])
             except Exception:#if the element is a string skip 
                 pass #skipping  
     
@@ -332,3 +333,4 @@ if __name__ == '__main__':#checking for main()
 #database = list(database.items())
 #print(database)
 #writeDB(database)
+
